@@ -80,6 +80,9 @@ typedef List<T> FavoriteItems<T>(List<T> items);
 enum Mode { DIALOG, MODAL_BOTTOM_SHEET, MENU, BOTTOM_SHEET }
 
 class DropdownSearch<T> extends StatefulWidget {
+  /// addition suffix widget
+  final List<Widget>? suffixWidgets;
+
   ///offline items list
   final List<T> items;
 
@@ -164,6 +167,7 @@ class DropdownSearch<T> extends StatefulWidget {
 
   DropdownSearch({
     Key? key,
+    this.suffixWidgets = const [],
     this.onSaved,
     this.validator,
     this.autoValidateMode = AutovalidateMode.disabled,
@@ -198,6 +202,7 @@ class DropdownSearch<T> extends StatefulWidget {
 
   DropdownSearch.multiSelection({
     Key? key,
+    this.suffixWidgets = const [],
     this.autoValidateMode = AutovalidateMode.disabled,
     this.items = const [],
     this.asyncItems,
@@ -468,6 +473,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
+        if (widget.suffixWidgets != null) ...widget.suffixWidgets!,
         if (widget.clearButtonProps.isVisible && getSelectedItems.isNotEmpty)
           IconButton(
             onPressed: clearButtonPressed,
