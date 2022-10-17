@@ -34,6 +34,7 @@ typedef Widget DropdownSearchBuilder<T>(BuildContext context, T? selectedItem);
 typedef Widget DropdownSearchBuilderMultiSelection<T>(
   BuildContext context,
   List<T> selectedItems,
+  void Function(T) removeItem,
 );
 typedef Widget DropdownSearchPopupItemBuilder<T>(
   BuildContext context,
@@ -63,6 +64,7 @@ typedef Widget FavoriteItemsBuilder<T>(
 typedef Widget ValidationMultiSelectionBuilder<T>(
   BuildContext context,
   List<T> item,
+  VoidCallback onPressed,
 );
 
 typedef RelativeRect PositionCallback(
@@ -351,9 +353,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         );
       } else if (widget.dropdownBuilderMultiSelection != null)
         return widget.dropdownBuilderMultiSelection!(
-          context,
-          getSelectedItems,
-        );
+            context, getSelectedItems, removeItem);
       else if (isMultiSelectionMode) {
         return Wrap(
           children: getSelectedItems

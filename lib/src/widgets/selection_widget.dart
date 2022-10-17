@@ -234,14 +234,14 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
         alignment: Alignment.centerRight,
         child: ElevatedButton(
           onPressed: onValidate,
-          child: Text("OK"),
+          child: Text("Done"),
         ),
       ),
     );
 
     if (widget.popupProps.validationWidgetBuilder != null) {
       return widget.popupProps.validationWidgetBuilder!(
-          context, _selectedItems);
+          context, _selectedItems, onValidate);
     }
 
     return defaultValidation;
